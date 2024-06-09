@@ -8,3 +8,5 @@ def canUnlockAll(boxes):
     """
     This method determines if all the boxes can be opened
     """
+    if not boxes:
+        return False
