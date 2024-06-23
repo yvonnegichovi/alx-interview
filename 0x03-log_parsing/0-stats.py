@@ -1,12 +1,8 @@
 #!/usr/bin/python3
-"""
-This script reads stdin line by line and computes metrics
-"""
-
-import signal
 import sys
+import signal
 
-
+# Initialize counters
 total_size = 0
 status_counts = {200: 0, 301: 0, 400: 0, 401: 0, 403: 0, 404: 0, 405: 0, 500: 0}
 line_count = 0
@@ -27,10 +23,10 @@ signal.signal(signal.SIGINT, signal_handler)
 try:
     for line in sys.stdin:
         parts = line.split()
-
-        if len(parts) < 9:
+        
+        if len(parts) < 10:
             continue
-
+        
         ip = parts[0]
         date = parts[3][1:] + " " + parts[4][:-1]
         request = " ".join(parts[5:8])
@@ -39,7 +35,7 @@ try:
 
         if request != '"GET /projects/260 HTTP/1.1"':
             continue
-
+        
         try:
             file_size = int(file_size)
             total_size += file_size
@@ -52,7 +48,7 @@ try:
                 status_counts[status_code] += 1
         except ValueError:
             continue
-
+        
         line_count += 1
         if line_count % 10 == 0:
             print_stats()
@@ -61,4 +57,5 @@ except KeyboardInterrupt:
     print_stats()
     sys.exit(0)
 
+# Final stats print if stdin ends without keyboard interrupt
 print_stats()
