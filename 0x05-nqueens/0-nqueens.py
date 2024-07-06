@@ -22,6 +22,7 @@ def is_safe(board, row, col, N):
 
     return True
 
+
 def solve_nqueens_util(board, col, N, solutions):
     """solve the nqueens"""
     if col >= N:
@@ -38,6 +39,7 @@ def solve_nqueens_util(board, col, N, solutions):
             board[i][col] = 1
             solve_nqueens_util(board, col + 1, N, solutions)
             board[i][col] = 0  # backtrack
+
 
 def solve_nqueens(N):
     """solve N"""
