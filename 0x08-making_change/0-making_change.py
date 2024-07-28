@@ -8,13 +8,16 @@ def makeChange(coins, total):
         - coins: a list of the values of coins in your possession
         - total: a given amount
     Return: fewest number of coins needed to meet total"""
+    if not coins or coins is None:
+        return -1
     if total <= 0:
         return 0
-    dp = [float('inf')] * (total + 1)
-    dp[0] = 0
-    coins.sort(reverse=True)
+    change = 0
+    coins = sorted(coins)[::-1]
     for coin in coins:
-        for amount in range(coin, total + 1):
-            dp[amount] = min(dp[amount], dp[amount - coin] + 1)
-    return dp[total] if dp[total] != float('inf') else -1
-
+        while coin <= total:
+            total -= coin
+            change += 1
+        if (total == 0):
+            return change
+    return -1
