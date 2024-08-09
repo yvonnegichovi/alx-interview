@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+"""This module focuses on prime game"""
 
 
 def isWinner(x, nums):
